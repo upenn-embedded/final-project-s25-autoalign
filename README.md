@@ -124,27 +124,46 @@ _You've got limited time to get this project done! How will you plan your sprint
 
 Ayan: Solidworks of the wedge and the mount. We decided that since the gun magazine was angled downwards, we wanted to make a wedge that can make gun fire straight instead of down. Helped build the target zone
 
-Matilda: Ordered parts. Created a prototype target zone to do tests on and had the ATMega to print something to the terminal if the bullet hit the zone. Tested different buttons to see.
+Matilda: Ordered parts. Created a prototype target zone to do tests on and had the ATMega to print something to the terminal if the bullet hit the zone.
 
-Destynn: Worked with RF sensors and understood how to work them and how commuication between two modules is transmitted. Helped design the new target prototype.
+Destynn: Worked with RF sensors and understood how to work them and how commuication between two modules is transmitted. Helped design the new target prototype and construct it.
 
 All of us decided that we were going to use 17 buttons over 17 pressure sensors. We thought of a new design with 4 springs and a button underneath a pad of acrylic/wood that would push the button down lightly underneath the pad. Matilda made the first prototype of the pad with the springs and tested different buttons to see which one was the best. Since the pressure sensors were originally going to be our ADC component, we are going to use buttons instead with a resistive divider circuit to complete the ADC component. Each button will be assigned to a different voltage and we will convert using ADC on the ATMega.
 
-PROTOTYPE IMAGE OF TARGET ZONE:
+WORKING ON/PROTOTYPE IMAGE OF TARGET ZONE PROTOTYPE:
+![image](targetSolid.png)
+![image](workTarget.png)
+![image](workTarget2.png)
+![image](targetPrototype.png)
+![image](targetPrototype2.png)
+
+Here is a video of the target prototype working 80% of the time. We will need to get new softer springs as well as ensure the target hit prints every hit, and just once.
+
+Video: [https://drive.google.com/file/d/1j0xhVTu1WuUeO6oQJYjVxc8Wiqz5kmaa/view?usp=sharing](https://drive.google.com/file/d/1j0xhVTu1WuUeO6oQJYjVxc8Wiqz5kmaa/view?usp=sharing)
 
 IMAGE OF STAND/WEDGE IN SOLIDWORKS:
+![image](standSolid.png)
+
+RF Module:
+![image](RF.png)
 
 ### Current state of project
 
-We currently have a target zone prototype. It uses four springs in the corner of a laser cut acrylic piece. It the back acrylic piece has a hole in the middle that holes a button. When the gun fires at the front piece of a acrylic, the springs compress and the button presses. With that we are then able to record whether the button has been pressed by the
+We currently have a target zone prototype. It uses four springs in the corners of two sandwiched laser cut 1/8" acrylic pieces. The back acrylic piece has a hole in the middle that holds a button. When the gun fires at the front piece of a acrylic, the springs compresses and the button presses. With that we are then able to record whether the button has been pressed by the bullet. Our current prototype works about 80% of the time. The other 20% it does not register the hit. We will have to mess around with which springs to use, how tall to make them, and how close to place the button to the top pad. The code might also be an issue somehow, but we doubt it. There will eventually be 17 target zones. The 8 out on the outside will be bigger while the 9 on the inside will be smaller.
+
+Ayan also created a Solidworks file of our stand/wedge that will hold the motors and toy. It has yet to be lazer cut.
+
+Destynn has looked deeply into the RF module and how it works in order to send signals across different ATMegas. Also heavily helped with target prototype planning and design
+
+Matilda: Worked on the target prototype with destynn and looked into RF module too.
 
 ### Next week's plan
 
-Matilda: Build more target zones
+Matilda: Tweak the current prototype to work at least 95% of the time. Build more target zones and assemble full target. Work with Destynn to use ADC to get input from different buttons.
 
-Destynn:
+Destynn: Build resistive divider circuit for buttons for target peripheral.
 
-Ayan:
+Ayan: Print and Assemble Motor Stand. Attach to ATMega to control motors.
 
 ## Sprint Review #2
 
