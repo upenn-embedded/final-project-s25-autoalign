@@ -161,7 +161,7 @@ Matilda: Worked on the target prototype with destynn and looked into RF module t
 
 Matilda: Tweak the current prototype to work at least 95% of the time. Build more target zones and assemble full target. Work with Destynn to use ADC to get input from different buttons.
 
-Destynn: Build resistive divider circuit for buttons for target peripheral.
+Destynn: Build resistive divider circuit for buttons for target peripheral. Continue working on RF (Matilda will help)
 
 Ayan: Print and Assemble Motor Stand. Attach to ATMega to control motors.
 
