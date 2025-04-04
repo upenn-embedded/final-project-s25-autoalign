@@ -122,9 +122,29 @@ _You've got limited time to get this project done! How will you plan your sprint
 
 ### Last week's progress
 
+Ayan: Solidworks of the wedge and the mount. We decided that since the gun magazine was angled downwards, we wanted to make a wedge that can make gun fire straight instead of down. Helped build the target zone
+
+Matilda: Ordered parts. Created a prototype target zone to do tests on and had the ATMega to print something to the terminal if the bullet hit the zone. Tested different buttons to see.
+
+Destynn: Worked with RF sensors and understood how to work them and how commuication between two modules is transmitted. Helped design the new target prototype.
+
+All of us decided that we were going to use 17 buttons over 17 pressure sensors. We thought of a new design with 4 springs and a button underneath a pad of acrylic/wood that would push the button down lightly underneath the pad. Matilda made the first prototype of the pad with the springs and tested different buttons to see which one was the best. Since the pressure sensors were originally going to be our ADC component, we are going to use buttons instead with a resistive divider circuit to complete the ADC component. Each button will be assigned to a different voltage and we will convert using ADC on the ATMega.
+
+PROTOTYPE IMAGE OF TARGET ZONE:
+
+IMAGE OF STAND/WEDGE IN SOLIDWORKS:
+
 ### Current state of project
 
+We currently have a target zone prototype. It uses four springs in the corner of a laser cut acrylic piece. It the back acrylic piece has a hole in the middle that holes a button. When the gun fires at the front piece of a acrylic, the springs compress and the button presses. With that we are then able to record whether the button has been pressed by the
+
 ### Next week's plan
+
+Matilda: Build more target zones
+
+Destynn:
+
+Ayan:
 
 ## Sprint Review #2
 
