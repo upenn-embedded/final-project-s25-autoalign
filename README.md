@@ -246,7 +246,7 @@ For the MVP, we aim to have the motors functioning properly and the full target 
 
 **1. Show a system block diagram & explain the hardware implementation.**
 
-![image](MvpBlocK.png)
+![image](MvpBlock.png)
 The blue represents unfinished work
 
 **2. Explain your firmware implementation, including application logic and critical drivers you've written.**
