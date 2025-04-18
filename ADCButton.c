@@ -56,8 +56,8 @@ uint16_t readADC(int channel) {
 
 // Red panel: 8 buttons
 uint8_t detectRedButton(int adcVal) {
-    if (adcVal > 70 && adcVal < 140)  return 1;
-    if (adcVal > 150 && adcVal < 230) return 2;
+    if (adcVal > 70 && adcVal < 120)  return 1;
+    if (adcVal > 140 && adcVal < 230) return 2;
     if (adcVal > 242 && adcVal < 320) return 3;
     if (adcVal > 330 && adcVal < 410) return 4;
     if (adcVal > 420 && adcVal < 500) return 5;
@@ -105,7 +105,7 @@ int main(void) {
     
     // Bullseye button setup
     DDRC &= ~(1<<DDC1);  // PC1 as input
-    //PORTC |= (1 << PC1); // Enable pull-up on PC1
+    //PORTC &= (1 << PC1); // Enable pull-up on PC1
     
     // ADC setup
     ADMUX = (1 << REFS0); // AVcc reference
@@ -124,7 +124,7 @@ int main(void) {
             //printf("Bullseye\n");
             // Set payload to "BE" for bullseye
             txp[0] = 'B';
-            txp[1] = 'E';
+            txp[1] = '0';
             // Send over nRF24L01+
             send_payload(txp, PAYLOAD_SIZE);
             printf("Sent \"%.*s\"\n", PAYLOAD_SIZE, txp);

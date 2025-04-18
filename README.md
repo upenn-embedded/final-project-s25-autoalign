@@ -245,22 +245,38 @@ For the MVP, we aim to have the motors functioning properly and the full target 
 ## MVP Demo
 
 1. Show a system block diagram & explain the hardware implementation.
+
+![image](MvpBlock.png)
+The blue represents unfinished work
+
 2. Explain your firmware implementation, including application logic and critical drivers you've written.
+
 3. Demo your device.
+
 4. Have you achieved some or all of your Software Requirements Specification (SRS)?
 
-   1. Show how you collected data and the outcomes.
+We have achieved nearly all of our SRS. We have achieved impact on the button sends a specific signal to the ATMega. The RF module sends the signal from one ATMega to the other that controls the motor. The Principle ATMega sucessfully moves our motor stand based on signals we send it via PWM. The two SRS requirements we haven't completed are the LCD screen and the trigger to automatically fire the nerf gun without us having to shoot it. These will be done by the final project. We thought they weren't necessary for the MVP to show our product worked as we intended.
+
+1.  Show how you collected data and the outcomes.
+
+Each target piece has a button behind it, that is triggered when the bullet hits it. Each color is associated with a different ADC pin, where different pins are part of a different resisitve divider.
 
 5. Have you achieved some or all of your Hardware Requirements Specification (HRS)?
 
    1. Show how you collected data and the outcomes.
 
 6. Show off the remaining elements that will make your project whole: mechanical casework, supporting graphical user interface (GUI), web portal, etc.
+
+The target is practically complete, and all of the pieces are printed. The remaining elements are the LCD screen and making the trigger motor to ensure we do not have to touch it as it runs. Then we will also add functionality to ensure that if a bullet triggers two buttons it can understand where it hit more clearly. Lastly, we will make our motor stand more powerful by attaching new motor drivers.
+
 7. What is the riskiest part remaining of your project?
 
-   1. How do you plan to de-risk this?
+The trigger for the gun being automatic. It will be difficult to do this because we need to find a way to both activate the power and press the mechanical switch without touching the gun or misaligning it.
 
-8. What questions or help do you need from the teaching team?
+1. How do you plan to de-risk this?
+   One option is hardwiring, and our backup option is just phsically actuating it. We will use servos to pull both buttons that need to be pulled to ensure it works.
+
+2. What questions or help do you need from the teaching team?
 
 ## Final Project Report
 
