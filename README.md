@@ -244,39 +244,126 @@ For the MVP, we aim to have the motors functioning properly and the full target 
 
 ## MVP Demo
 
-1. Show a system block diagram & explain the hardware implementation.
+**1. Show a system block diagram & explain the hardware implementation.**
 
-![image](MvpBlock.png)
+![image](MvpBlocK.png)
 The blue represents unfinished work
 
-2. Explain your firmware implementation, including application logic and critical drivers you've written.
+**2. Explain your firmware implementation, including application logic and critical drivers you've written.**
 
-3. Demo your device.
+Our firmware implementation is as follows: The target is standalone with an ATMega and an RF module attached. It has 17 buttons, which use 3 separate ADC Pins (PC0, PC4, PC5) as well as one GPIO pin for the bullseye. The buttons sit behind 17 separate laser cut acrylic pieces which are held up over the button by springs. When our nerf gun fires at the target in a certain spot, it will press down that button behind that acrylic pad.
 
-4. Have you achieved some or all of your Software Requirements Specification (SRS)?
+One thing that we noted last week was that the buttons were too far away for the pads to be able to register the hits, so we added these squares that sit right in the center, that hover over where the buttons are.
+![image](targetBuild.png)
+![image](targetBuild2.png)
 
-We have achieved nearly all of our SRS. We have achieved impact on the button sends a specific signal to the ATMega. The RF module sends the signal from one ATMega to the other that controls the motor. The Principle ATMega sucessfully moves our motor stand based on signals we send it via PWM. The two SRS requirements we haven't completed are the LCD screen and the trigger to automatically fire the nerf gun without us having to shoot it. These will be done by the final project. We thought they weren't necessary for the MVP to show our product worked as we intended.
+The buttons use ADC by going through three resisitve dividers. Each color of the target represents a ADC pin, and no two colors touch to ensure we dont fire two at the same time and get a random voltage reading.
+
+The buttons slot through the back of the target and are all soldered. The buttons all have a VCC pin which connect to their respective parts of the resisitve divider, and the other pin is the pin that connects to the ADC pin on the ATMega, so they are all a common node for each color.
+
+![image](Perfboard.png)
+![image](connectingButtons.png)
+
+The white and yellow modules share a perfboard while the red (which is 8 buttons) has its own.
+
+Here is an initial test video where the oscilloscope shows the voltage jump when the buttons are pressed: [Initial Test](https://drive.google.com/file/d/1Ti1Q_aNJvFZGLuL9JDWu-jdo0Eh8TL3k/view?usp=sharing)
+
+The final implementation of the target was able to print out the correct value wherever it hit to the terminal according to these values:
+
+![image](targetMap.jpg)
+
+Here are images of the final constructed target
+
+![image](TargetConstructed.png)
+![image](TargetConstructed2.png)
+
+We added a backing to ensire that the bullets push the springs rather than the entire board. It made the signals pick up more consistently since the bullets fire so quickly.
+
+Then, the RF modules are able to pick up on this transmision and send it to a separate ATMega. So if you shoot "R7" it will send "R7" to the other ATMega consistently.
+
+More on the RF: The RF uses SPI between two ATMegas that can sit accross the room from each other. The SPI transmitter on the target ATMega is on SPI 0 so that the PC pins are free for the ADC while on the motor ATMega, the SPI pin is SPI1 so it keeps as many GPIO pins for the motor drivers as free as possible.
+
+The code that runs the ADC button and transmission is called "ADCButton.c" and is in the github repo
+
+The code that recieves the signal and prints it is called "RF_Reciever" and the code that recieves it and moves our motors is called "gunCode.c" and "gunCalibrate.c". These are also on our repo.
+
+Here is a final video that walks through the target setup as well as the RF transmission and recieved message: [RF Module](https://drive.google.com/file/d/1rUKkpuHiJbicsA5cL1VGYTxgmowKyEMa/view?usp=sharing)
+
+The last part of our project is what currently needs the most work. Our stand for our gun can sucessfuly recieve a signal from the target and move, but it is quite unsteady and does not have a lot of torque.
+
+The two motors use PWM to control them and currently we don't have the right motor drivers to give enough current for them to be as steady as we want.
+
+Here is a video of it somewhat working how we want with half step movement: [Motor Control](https://drive.google.com/file/d/1HDAYzmUnKHeJbwB2_LW9rC8Y2Iv4ZrEs/view?usp=sharing)
+
+This video demonstrates the capability to move both up and sideways at the same time, emulating diagonal movement.
+
+We've set up code for it to be able to move according to where the target is set and it is in our repo, but still, the gun is too unsteady, so we plan to add a gear box and more stability.
+
+**3. Demo your device.**
+
+Done in class, see full video (same as above): [Video](https://drive.google.com/file/d/1rUKkpuHiJbicsA5cL1VGYTxgmowKyEMa/view?usp=sharing)
+
+<div style="page-break-after: always;"></div>
+
+**4. Have you achieved some or all of your Software Requirements Specification (SRS)?**
+
+Our SRS (Modified to fit buttons over pressure sensors)
+
+| ID     | Description                                                                                                                                                                                                                                             |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SRS-01 | Impact on a target module square will press the button underneath, and send a certain ADC signal to the peripheral ATMega which can be decoded to that specific button                                                                                  |
+| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules                                                                                                                                                    |
+| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center                                                                                                            |
+| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every 5 seconds (time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a servo controlled by PWM. |
+| SRS-05 | The ATMega will be able to turn on and off the motor control inside the gun to initiate the sequence.                                                                                                                                                   |
+| SRS-06 | (Optional) LCD Screen to show where the bullet made contact with the board.                                                                                                                                                                             |
+
+We have achieved nearly all of our SRS. We have achieved 1,2 and 3 partially and 4 and 5 (and maybe 6) will be completed this week.
+
+We have achieved impact on the button sends a specific signal to the ATMega. The RF module sends the signal from one ATMega to the other that controls the motor. The Principle ATMega sucessfully moves our motor stand based on signals we send it via PWM.
 
 1.  Show how you collected data and the outcomes.
 
-Each target piece has a button behind it, that is triggered when the bullet hits it. Each color is associated with a different ADC pin, where different pins are part of a different resisitve divider.
+As explained in the firmware explanation: each target piece has a button behind it, that is triggered when the bullet hits it. Each button can be separately registered and sent over RF. There is a video that shows this in its entirety above. The motors are still a little unsteady but we could see the target sending a signal to the motor because the motor was drawing current whenever we pressed a target module.
 
-5. Have you achieved some or all of your Hardware Requirements Specification (HRS)?
+**5. Have you achieved some or all of your Hardware Requirements Specification (HRS)?**
 
-   1. Show how you collected data and the outcomes.
+Our HRS (Modified)
+| ID | Description |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HRS-01 | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega |
+| HRS-02 | LCD Display connected to principal ATMega will display location and distance from center of recieved impacted projectile|
+| HRS-03 | Two electronic motors will be used to control the pitch and yaw |
+| HRS-04 | An electronic motor will be used to "press" the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega) |
+| HRS-05 | Nerf gun will launch projectile towards the peripheral target |
 
-6. Show off the remaining elements that will make your project whole: mechanical casework, supporting graphical user interface (GUI), web portal, etc.
+Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
 
-The target is practically complete, and all of the pieces are printed. The remaining elements are the LCD screen and making the trigger motor to ensure we do not have to touch it as it runs. Then we will also add functionality to ensure that if a bullet triggers two buttons it can understand where it hit more clearly. Lastly, we will make our motor stand more powerful by attaching new motor drivers.
+1.  Show how you collected data and the outcomes.
 
-7. What is the riskiest part remaining of your project?
+See videos in firmware explanation
 
-The trigger for the gun being automatic. It will be difficult to do this because we need to find a way to both activate the power and press the mechanical switch without touching the gun or misaligning it.
+**6. Show off the remaining elements that will make your project whole: mechanical casework, supporting graphical user interface (GUI), web portal, etc.**
+
+The target is practically complete, and all of the pieces are printed. The remaining elements are:
+
+1. Fixing the motor stand to move correctly when we send a signal to it. It can recieve the signal well, but making it move correctly is not working as well as it is unsteady. It will help when our new motor drivers arrive.
+2. We also need to work on making the trigger motor with a separate servo motor to ensure we do not have to touch it as it runs to make it as accurate as possible.
+3. We will also add functionality to ensure that if a bullet triggers two buttons (hits in between) it can understand where it hit more clearly and move accordingly
+4. Optionally: adding an LCD screen to show where the bullet hit.
+
+**7. What is the riskiest part remaining of your project?**
+
+The trigger for the gun being automatic. It will be difficult to do this because we need to find a way to both activate the power from the ATMega and press the mechanical switch without physically touching the gun or misaligning it. Another risky part is the stand that we need to somewhat redesign. We need to add a gear box to up the torque.
 
 1. How do you plan to de-risk this?
-   One option is hardwiring, and our backup option is just phsically actuating it. We will use servos to pull both buttons that need to be pulled to ensure it works.
+   One option is hardwiring, and our backup option is just phsically actuating it. We will use servos to pull the trigger button and use the ATmega to turn on the motors inside the gun. In terms of the stand, starting early!
 
-2. What questions or help do you need from the teaching team?
+**8. What questions or help do you need from the teaching team?**
+
+We might need some help with the gearbox, but I think for now we have it covered!
+
+<div style="page-break-after: always;"></div>
 
 ## Final Project Report
 
