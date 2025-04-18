@@ -105,7 +105,7 @@ int main(void) {
     
     // Bullseye button setup
     DDRC &= ~(1<<DDC1);  // PC1 as input
-    PORTC |= (1 << PC1); // Enable pull-up on PC1
+    //PORTC |= (1 << PC1); // Enable pull-up on PC1
     
     // ADC setup
     ADMUX = (1 << REFS0); // AVcc reference
@@ -121,7 +121,7 @@ int main(void) {
         
         // Checking bullseye button (active low)
         if (!(PINC & (1 << PC1)) && !bullseyePressed) {
-            printf("Bullseye\n");
+            //printf("Bullseye\n");
             // Set payload to "BE" for bullseye
             txp[0] = 'B';
             txp[1] = 'E';
