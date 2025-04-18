@@ -255,7 +255,7 @@ Our firmware implementation is as follows: The target is standalone with an ATMe
 
 One thing that we noted last week was that the buttons were too far away for the pads to be able to register the hits, so we added these squares that sit right in the center, that hover over where the buttons are.
 ![image](targetBuild.png)
-![image](targetBuild2.png)
+![image](TargetBuild2.png)
 
 The buttons use ADC by going through three resisitve dividers. Each color of the target represents a ADC pin, and no two colors touch to ensure we dont fire two at the same time and get a random voltage reading.
 
