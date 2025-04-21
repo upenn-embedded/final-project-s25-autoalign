@@ -16,7 +16,7 @@
 #define PWMAx PD2
 #define BIN1x PD3
 #define BIN2x PD4
-#define PWMBx PD5
+#define PWMBx PD7
 
 // Full-step sequence for Y motor (on PORTB)
 const uint8_t fullstep_sequence_y[4] = {
