@@ -17,7 +17,7 @@
 #define PWMAy PD2
 #define BIN1y PD3
 #define BIN2y PD4
-#define PWMBy PD5
+#define PWMBy PD7
 
 // Bitmasks for setting control lines (AIN1..BIN2)
 const uint8_t halfstep_sequence_y[8] = {
