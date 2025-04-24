@@ -5,19 +5,19 @@
 
 
 // TB6612 PORTB pin assignments
-#define AIN1x PB0
-#define AIN2x PB1
-#define PWMAx PB2
-#define BIN1x PB3
-#define BIN2x PB4
-#define PWMBx PB5
+#define AIN1y PB0
+#define AIN2y PB1
+#define PWMAy PB2
+#define BIN1y PB3
+#define BIN2y PB4
+#define PWMBy PB5
 
-#define AIN1y PD0
-#define AIN2y PD1
-#define PWMAy PD2
-#define BIN1y PD3
-#define BIN2y PD4
-#define PWMBy PD5
+#define AIN1x PD0
+#define AIN2x PD1
+#define PWMAx PD2
+#define BIN1x PD3
+#define BIN2x PD4
+#define PWMBx PD7
 
 // Bitmasks for setting control lines (AIN1..BIN2)
 const uint8_t halfstep_sequence_y[8] = {
