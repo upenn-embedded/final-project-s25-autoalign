@@ -339,6 +339,37 @@ Our HRS (Modified)
 
 Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
 
+
+
+
+Our SRS (Final)
+| ID     | Description                                                                                                                                                                                                                                             |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SRS-01 | Impact on a target module square will press the button underneath, and send a scaled ADC signal to the peripheral ATMega which will be decoded to identify that specific button. For the bullseye it, it should use GPIO.                                                                               |
+| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules immediately (within a few milliseconds) after the receiving the ADC signal                                                                                                                                                |
+| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center. Motion should take less than 4 seconds.                                                                                                           |
+| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every ~6 seconds (including time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a third stepper controlled by PWM. |
+| SRS-05 | The RF receiver will trigger an interrupt when data is received from the target ATMega peripheral                                                                                                                                                 |
+
+
+
+Our HRS (Final)
+| ID | Description |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HRS-01 | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega |
+| HRS-02 | Two stepper motors will be used to control the pitch and yaw |
+| HRS-03 | A stepper motor will be used to "press" the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega) |
+| HRS-04 | Nerf gun will launch projectile towards the peripheral target |
+HRS-05 | RF receiver module will use capacitor circuit for noise reduction |
+
+Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
+
+
+
+
+
+
+
 1.  Show how you collected data and the outcomes.
 
 See videos in firmware explanation
