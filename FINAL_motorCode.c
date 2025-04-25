@@ -181,7 +181,7 @@ void moveDownLot(){
 }
 
 void moveDownLittle(){
-    move_motor2(Y_DIR, Y_STEP, 0, 10000); 
+    move_motor2(Y_DIR, Y_STEP, 0, 11500); 
 }
 
 void moveUpLot(){
@@ -189,26 +189,29 @@ void moveUpLot(){
 }
 
 void moveUpLittle(){
-    move_motor2(Y_DIR, Y_STEP, 1, 10000);
+    move_motor2(Y_DIR, Y_STEP, 1, 11500);
 }
 
 void moveRightLot(){
-    move_motor(X_DIR, X_STEP, 1, 800); 
+    move_motor(X_DIR, X_STEP, 1, 700); 
 }
 void moveRightLittle(){
     move_motor(X_DIR, X_STEP, 1, 200); 
 }
 void moveLeftLot(){
     // Explicitly use the direction value that worked in your test code
-    move_motor(X_DIR, X_STEP, 0, 800); 
+    move_motor(X_DIR, X_STEP, 0, 700); 
 }
 void moveLeftLittle(){
     move_motor(X_DIR, X_STEP, 0, 200);
 }
 
+
 volatile uint8_t cmd_received = 0;
 volatile char cmd_letter = 0;
 volatile char cmd_number = 0;
+volatile uint8_t seconds_since_last_cmd = 0;
+volatile uint8_t timer_enabled = 0;
 
 // --- IRQ Handler ---
 ISR(PCINT0_vect) {
@@ -220,6 +223,9 @@ ISR(PCINT0_vect) {
             cmd_letter = buf[0];
             cmd_number = buf[1];
             cmd_received = 1;
+  
+            timer_enabled = 0;
+            seconds_since_last_cmd = 0;
             
             // Clear the received flag
            nrf_write(STATUS, RX_DR);
@@ -227,9 +233,41 @@ ISR(PCINT0_vect) {
     }
 }
 
+
+
+
+void timer1_init(void) {
+    // Set CTC mode: WGM12 = 1
+    TCCR1B |= (1 << WGM12);
+
+    // Prescaler = 1024
+    TCCR1B |= (1 << CS12) | (1 << CS10);
+
+    // Compare match every 1 second
+    // Formula: OCR1A = (F_CPU / prescaler / freq) - 1
+    // For 1Hz: OCR1A = 16000000 / 1024 / 1 - 1 = 15624
+    OCR1A = 15624;
+
+    // Enable Timer1 Compare Match A interrupt
+    TIMSK1 |= (1 << OCIE1A);
+}
+
+ISR(TIMER1_COMPA_vect) {
+    if (timer_enabled) {
+        seconds_since_last_cmd++;
+
+        if (seconds_since_last_cmd >= 7) {
+            shoot();
+            timer_enabled = 1;             // stop counting
+            seconds_since_last_cmd = 0;    // reset
+        }
+    }
+}
+
+
 // --- Main ---
 int main(void) {
-    //uart_init();
+   //uart_init();
     spi1_init();
     setup_pins();
 
@@ -266,11 +304,25 @@ int main(void) {
     // Enable interrupt on PB1 (PCINT1)
     PCICR  |= (1 << PCIE0);
     PCMSK0 |= (1 << PCINT1);
+    
+    timer1_init();
     sei();
 
+    
+    //DDRC &= ~(1<<DDC1); //bullseye
+
+    
+    
+    
     CE_HIGH();  // begin listening
+    
+    
+    shoot();
+    seconds_since_last_cmd = 0;
+    timer_enabled = 1;
 
     while (1) {
+        //printf("timer: %d\n",  seconds_since_last_cmd);
         if(cmd_received){
          if (buf[0] == 'Y' && buf[1] == '2') {
              moveDownLot();
@@ -336,10 +388,31 @@ int main(void) {
          else if (buf[0] == 'R' && buf[1] == '2') {
              moveLeftLittle();
          }
+         else if (buf[0] == 'B' && buf[1] == '0') {
+            moveLeftLot();
+            _delay_ms(200);
+             moveRightLot();
+             _delay_ms(200);
+             moveLeftLot();
+            _delay_ms(200);
+             moveRightLot();
+             _delay_ms(200);
+             moveLeftLot();
+            _delay_ms(200);
+             moveRightLot();
+             _delay_ms(200);
+             moveLeftLot();
+            _delay_ms(200);
+             moveRightLot();
+             _delay_ms(200);
+         }
          
          cmd_received = 0;
-         _delay_ms(1000);
+         seconds_since_last_cmd = 0;
+         timer_enabled = 1;
          shoot();
         }
+        
+        
     }
 }
