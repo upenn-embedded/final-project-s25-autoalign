@@ -342,25 +342,7 @@ Similarly to SRS, we have completed and tested the buttons, and motors. The butt
 
 
 
-Our SRS (Final)
-| ID     | Description                                                                                                                                                                                                                                             |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SRS-01 | Impact on a target module square will press the button underneath, and send a scaled ADC signal to the peripheral ATMega which will be decoded to identify that specific button. For the bullseye it, it should use GPIO.                                                                               |
-| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules immediately (within a few milliseconds) after the receiving the ADC signal                                                                                                                                                |
-| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center. Motion should take less than 4 seconds.                                                                                                           |
-| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every ~6 seconds (including time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a third stepper controlled by PWM. |
-| SRS-05 | The RF receiver will trigger an interrupt when data is received from the target ATMega peripheral                                                                                                                                                 |
 
-
-
-Our HRS (Final)
-| ID | Description |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega |
-| HRS-02 | Two stepper motors will be used to control the pitch and yaw |
-| HRS-03 | A stepper motor will be used to "press" the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega) |
-| HRS-04 | Nerf gun will launch projectile towards the peripheral target |
-HRS-05 | RF receiver module will use capacitor circuit for noise reduction |
 
 Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
 
@@ -424,26 +406,55 @@ _What were your results? Namely, what was the final solution/design to your prob
 
 _Based on your quantified system performance, comment on how you achieved or fell short of your expected requirements._
 
+We met all our expectations.
+
 _Did your requirements change? If so, why? Failing to meet a requirement is acceptable; understanding the reason why is critical!_
+
+We removed a requirement to use an LCD screen because it was uneccessary (we talked it over with our paired TA) and removed a requirement that the ATMega turns the motors on and off because it was redundant. We added a requirement that the RF receive uses interrupts because we realized that polling would cause issues in conjunction with stepper motor movement. We also added some more specifics in general to our requirements to make them more quantifiable, such as motion and trigger timing.
 
 _Validate at least two requirements, showing how you tested and your proof of work (videos, images, logic analyzer/oscilloscope captures, etc.)._
 
-| ID     | Description                                                                                               | Validation Outcome                                                                          |
-| ------ | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| SRS-01 | The IMU 3-axis acceleration will be measured with 16-bit depth every 100 milliseconds +/-10 milliseconds. | Confirmed, logged output from the MCU is saved to "validation" folder in GitHub repository. |
+
+| ID     | Description                                                                                                                                                                                                                                             | Validation Outcome |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| SRS-01 | Impact on a target module square will press the button underneath, and send a scaled ADC signal to the peripheral ATMega which will be decoded to identify that specific button. For the bullseye it, it should use GPIO.                                 |        All 17 panels on the target map to an individual button (and trigger the button when press). Two sets of eight bottons are mapped together through a resistor divider to determine the actuated button through ADC. The code can be seen in the "FINAL_targetCode.c" file. The target design can also be seen in the previous pictures and videos.             |
+| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules within a reasonable amount of time after receiving the ADC signal                                                                          |         The principal and peripheral ATMegas both had connected nRF24L01+ RF modules via SPI, and in the MVP video, it was demonstrated that when the target was hit, the peripheral ATMega sent the label of the hit panel to the principal ATMega via RF   |
+| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center. Motion should take less than 6 seconds.                                                                  |      Implemented as described in the description of the specification. The movement of the motors can be seen in the demonstration video. The movement met the timing requirement.            |
+| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every ~7 seconds (including time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a third stepper controlled by PWM. |        Implemented as described in the description of the specification. The movement of the trigger rail can be seen in the demonstration video. The trigger timiming met the requirement.           |
+| SRS-05 | The RF receiver will trigger an interrupt when data is received from the target ATMega peripheral                                                                                                            |      The RF receiver was implemented using interrupts as can be seen in the "FINAL_motorCode.c" and "InterruptRFReceive.c" files           |
+                                                                      
+
+
+
+
+
+
 
 #### 3.2 Hardware Requirements Specification (HRS) Results
 
 _Based on your quantified system performance, comment on how you achieved or fell short of your expected requirements._
 
+We met all our expectations.
+
 _Did your requirements change? If so, why? Failing to meet a requirement is acceptable; understanding the reason why is critical!_
+
+We removed a requirement to use an LCD screen because it was uneccessary (we talked it over with our paired TA). We added a requirement to implement a capacitor de-noise circuit for the receiver RF because we realized that was necessary for RF receiver functionality. We reworded requirements for clarity and added details to make them more quantifiable, such as the nerf toy launching a projectile at a target over 8 feet away.
 
 _Validate at least two requirements, showing how you tested and your proof of work (videos, images, logic analyzer/oscilloscope captures, etc.)._
 
-| ID     | Description                                                                                                                        | Validation Outcome                                                                                                      |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm. | Confirmed, sensed obstacles up to 15cm. Video in "validation" folder, shows tape measure and logged output to terminal. |
-|        |                                                                                                                                    |                                                                                                                         |
+
+Our HRS (Final)
+| ID      | Description                                                                                                                                                                  | Validation Outcome |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| HRS-01  | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega                                                                 |     17 buttons were implemented on the target as can be seen in the demo video and previous attached pictures of the target            |
+| HRS-02  | Two stepper motors will be used to control the pitch and yaw                                                                                                                 |        Two stepper motors were used to control the up-down (pitch) and left-right (yaw) motion for the toy as can be seen in the demo video and previous attached pictures of the toy mount             |
+| HRS-03  | A stepper motor will be used to “press” the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega)                                               |      A stepper motor was used to guide a rail that pushed the bullets into the nerf toy projectile accelerating mechanism as can be seen in the demo video             |
+| HRS-04  | Nerf gun will launch projectile towards the peripheral target, over 8 feet away                                                                                                               |    The projectile was launched accross the Detkin lab benches, which are over 8 feet apart as can be seen in the demo video                |
+| HRS-05  | RF receiver module will use capacitor circuit for noise reduction                                                                                                            |   The nRF24L01+ RF receiver module utilized a two-capacitor de-noising circuit as can be seen in the picture below from the principal ATMega mini breadboard                 |
+
+![de-noiseCapacitorCircuit](./de-noiseCapacitorCircuit.png)
+Two-capacitor de-noise circuit for RF receiver.
+
 
 ### 4. Conclusion
 
