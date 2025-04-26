@@ -339,18 +339,7 @@ Our HRS (Modified)
 
 Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
 
-
-
-
-
-
 Similarly to SRS, we have completed and tested the buttons, and motors. The buttons work well and all register as we want, while the motors still need work. They can hold the gun up and turn, but very slowly and often falls. We will need to work most on triggering the gun with a separate servo motor as well as making the stand more steady to ensure the movement is accurate
-
-
-
-
-
-
 
 1.  Show how you collected data and the outcomes.
 
@@ -380,23 +369,19 @@ We might need some help with the gearbox, but I think for now we have it covered
 
 ## Final Project Report
 
-Don't forget to make the GitHub pages public website!
-If you’ve never made a GitHub pages website before, you can follow this webpage (though, substitute your final project repository for the GitHub username one in the quickstart guide): [https://docs.github.com/en/pages/quickstart](https://docs.github.com/en/pages/quickstart)
-
 ### 1. Video
 
-[Insert final project video here]
-
-- The video must demonstrate your key functionality.
-- The video must be 5 minutes or less.
-- Ensure your video link is accessible to the teaching team. Unlisted YouTube videos or Google Drive uploads with SEAS account access work well.
-- Points will be removed if the audio quality is poor - say, if you filmed your video in a noisy electrical engineering lab.
+[https://drive.google.com/file/d/1Y7Iry1P9N2BuDRim6GBoatGdywvc1A73/view?usp=sharing](https://drive.google.com/file/d/1Y7Iry1P9N2BuDRim6GBoatGdywvc1A73/view?usp=sharing)
 
 ### 2. Images
 
-[Insert final project images here]
+![image](fullImage.jpeg)
+![image](blaster.jpeg)
+![image](frontAngle.jpeg)
+![image](gearShaft.jpeg)
+![image](TargetConstructed.png)
 
-_Include photos of your device from a few angles. If you have a casework, show both the exterior and interior (where the good EE bits are!)._
+<div style="page-break-after: always;"></div>
 
 ### 3. Results
 
@@ -414,21 +399,15 @@ We removed a requirement to use an LCD screen because it was uneccessary (we tal
 
 _Validate at least two requirements, showing how you tested and your proof of work (videos, images, logic analyzer/oscilloscope captures, etc.)._
 
+| ID     | Description                                                                                                                                                                                                                                                                | Validation Outcome                                                                                                                                                                                                                                                                                                                                 |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SRS-01 | Impact on a target module square will press the button underneath, and send a scaled ADC signal to the peripheral ATMega which will be decoded to identify that specific button. For the bullseye it, it should use GPIO.                                                  | All 17 panels on the target map to an individual button (and trigger the button when press). Two sets of eight bottons are mapped together through a resistor divider to determine the actuated button through ADC. The code can be seen in the "FINAL_targetCode.c" file. The target design can also be seen in the previous pictures and videos. |
+| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules within a reasonable amount of time after receiving the ADC signal                                                                                                     | The principal and peripheral ATMegas both had connected nRF24L01+ RF modules via SPI, and in the MVP video, it was demonstrated that when the target was hit, the peripheral ATMega sent the label of the hit panel to the principal ATMega via RF                                                                                                 |
+| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center. Motion should take less than 6 seconds.                                                                                      | Implemented as described in the description of the specification. The movement of the motors can be seen in the demonstration video. The movement met the timing requirement.                                                                                                                                                                      |
+| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every ~7 seconds (including time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a third stepper controlled by PWM. | Implemented as described in the description of the specification. The movement of the trigger rail can be seen in the demonstration video. The trigger timiming met the requirement.                                                                                                                                                               |
+| SRS-05 | The RF receiver will trigger an interrupt when data is received from the target ATMega peripheral                                                                                                                                                                          | The RF receiver was implemented using interrupts as can be seen in the "FINAL_motorCode.c" and "InterruptRFReceive.c" files                                                                                                                                                                                                                        |
 
-| ID     | Description                                                                                                                                                                                                                                             | Validation Outcome |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| SRS-01 | Impact on a target module square will press the button underneath, and send a scaled ADC signal to the peripheral ATMega which will be decoded to identify that specific button. For the bullseye it, it should use GPIO.                                 |        All 17 panels on the target map to an individual button (and trigger the button when press). Two sets of eight bottons are mapped together through a resistor divider to determine the actuated button through ADC. The code can be seen in the "FINAL_targetCode.c" file. The target design can also be seen in the previous pictures and videos.             |
-| SRS-02 | Peripheral ATMega sends button coordinates (color and number) to principal ATMega via SPI RF modules within a reasonable amount of time after receiving the ADC signal                                                                          |         The principal and peripheral ATMegas both had connected nRF24L01+ RF modules via SPI, and in the MVP video, it was demonstrated that when the target was hit, the peripheral ATMega sent the label of the hit panel to the principal ATMega via RF   |
-| SRS-03 | The principal ATMega controls directional motors via PWM based on which button was sent from the target hit and aims more towards the center. Motion should take less than 6 seconds.                                                                  |      Implemented as described in the description of the specification. The movement of the motors can be seen in the demonstration video. The movement met the timing requirement.            |
-| SRS-04 | Principal ATMega uses a timer to pull the trigger on the nerf gun every ~7 seconds (including time for the motors to adjust) of the peripheral receiving input and outputting to the principal ATMega. The trigger will be pulled using a third stepper controlled by PWM. |        Implemented as described in the description of the specification. The movement of the trigger rail can be seen in the demonstration video. The trigger timiming met the requirement.           |
-| SRS-05 | The RF receiver will trigger an interrupt when data is received from the target ATMega peripheral                                                                                                            |      The RF receiver was implemented using interrupts as can be seen in the "FINAL_motorCode.c" and "InterruptRFReceive.c" files           |
-                                                                      
-
-
-
-
-
-
+<div style="page-break-after: always;"></div>
 
 #### 3.2 Hardware Requirements Specification (HRS) Results
 
@@ -442,33 +421,52 @@ We removed a requirement to use an LCD screen because it was uneccessary (we tal
 
 _Validate at least two requirements, showing how you tested and your proof of work (videos, images, logic analyzer/oscilloscope captures, etc.)._
 
-
 Our HRS (Final)
-| ID      | Description                                                                                                                                                                  | Validation Outcome |
+| ID | Description | Validation Outcome |
 |---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| HRS-01  | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega                                                                 |     17 buttons were implemented on the target as can be seen in the demo video and previous attached pictures of the target            |
-| HRS-02  | Two stepper motors will be used to control the pitch and yaw                                                                                                                 |        Two stepper motors were used to control the up-down (pitch) and left-right (yaw) motion for the toy as can be seen in the demo video and previous attached pictures of the toy mount             |
-| HRS-03  | A stepper motor will be used to “press” the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega)                                               |      A stepper motor was used to guide a rail that pushed the bullets into the nerf toy projectile accelerating mechanism as can be seen in the demo video             |
-| HRS-04  | Nerf gun will launch projectile towards the peripheral target, over 8 feet away                                                                                                               |    The projectile was launched accross the Detkin lab benches, which are over 8 feet apart as can be seen in the demo video                |
-| HRS-05  | RF receiver module will use capacitor circuit for noise reduction                                                                                                            |   The nRF24L01+ RF receiver module utilized a two-capacitor de-noising circuit as can be seen in the picture below from the principal ATMega mini breadboard                 |
+| HRS-01 | 17 Buttons will be used on the peripheral target that will signal force from projectile to peripheral ATMega | 17 buttons were implemented on the target as can be seen in the demo video and previous attached pictures of the target |
+| HRS-02 | Two stepper motors will be used to control the pitch and yaw | Two stepper motors were used to control the up-down (pitch) and left-right (yaw) motion for the toy as can be seen in the demo video and previous attached pictures of the toy mount |
+| HRS-03 | A stepper motor will be used to “press” the trigger of the nerf gun (or triggering mechanism will be hardwired to the ATMega) | A stepper motor was used to guide a rail that pushed the bullets into the nerf toy projectile accelerating mechanism as can be seen in the demo video |
+| HRS-04 | Nerf gun will launch projectile towards the peripheral target, over 8 feet away | The projectile was launched accross the Detkin lab benches, which are over 8 feet apart as can be seen in the demo video |
+| HRS-05 | RF receiver module will use capacitor circuit for noise reduction | The nRF24L01+ RF receiver module utilized a two-capacitor de-noising circuit as can be seen in the picture below from the principal ATMega mini breadboard |
 
 ![de-noiseCapacitorCircuit](./de-noiseCapacitorCircuit.png)
 Two-capacitor de-noise circuit for RF receiver.
 
+<div style="page-break-after: always;"></div>
 
 ### 4. Conclusion
 
-Reflect on your project. Some questions to address:
+**What did you learn/gain from it?**
 
-- What did you learn from it?
-- What went well?
-- What accomplishments are you proud of?
-- What did you learn/gain from this experience?
-- Did you have to change your approach?
-- What could have been done differently?
-- Did you encounter obstacles that you didn’t anticipate?
-- What could be a next step for this project?
+- This project helped us learn about numerous embedded software systems. Before this, we had never worked with RF modules, nor very much with motors. Some of the previous lab components had some basic motor coding, but this project really got down to the precise movement of the stepper motors we used, which allowed for extreme precision. We also learned about how important ideating is before building. There were multiple times where we implemented ideas and made them partially permanent (such as using super glue) before properly testing them. For example, the first four buttons we put in the target were too low down from the springs, so it made it really difficult for the bullet force to press them in, but they were all superglued in, so we had to break them out using heat and chip off parts of our backing board. If we had used a less permanent seal and then tested, it would have been a lot easier to fix.
+
+**What went well?**
+
+- The project overall went very well! While there were some longer nights, we got all of our requirements working, and the full loop of the system (as in, fire, hit, move, adjust, repeat) worked really well. While the gun being inaccurate was our main bottleneck, that was out of our control, and all of the items we implemented were quite effective. The RF modules worked really well together and sent and received signals very quickly to ensure the movement wasn't delayed for a long time. Another part of the project that went well was the Up/Down motor system as well as the trigger mechanism. While these both took some ideating, we ultimately had systems that had precise (86 nm) movement, and a trigger mechanism that successfully pushed the bullet into the chamber so it could be fired multiple times in a row without us having to interact with the system at all.
+
+**What accomplishments are you proud of?**
+
+- We are most proud of all of our components working together after working separately. We had a good motor stand, a working target module, and RF working, and then when we were able to write code that seamlessly integrated all of them to work in the looping system, it was extremely satisfying. Seeing the bullet hit the top middle target module and move down right to the middle and hit the middle without us interacting with the system at all was very exciting!
+
+**Did you have to change your approach?**
+
+- We had to significantly change our approach from the original motor stand idea. Originally, the design was very unbalanced, with one motor sitting on top of the other, which prevented precise control and caused torque issues. We then decided to split the motors into two separate modules that sat on the tabletop. Next, we needed to address the challenge of converting rotational motion into up-and-down movement. We decided to use a nut and bolt mechanism, where the bolt was attached to the motor and moved up and down along a stand that the top of the motor sat on. This allowed us to achieve extremely precise vertical movement. Finally, we placed the nose of the gun on a smooth acrylic flat top, allowing it to move left and right easily. We considered adding a wheel to further reduce friction, but the acrylic surface was already sufficiently smooth.
+
+**What could have been done differently?**
+
+- Two things that could have been done differently are using pressure sensors instead of buttons for the target, and using a nut and bolt setup for the left and right motor as well, so we could have had the same level of precision for both axes. Pressure sensors would have eliminated some of the issues we had where the bullets did not apply enough force for the buttons to fully press down, or did not register because they pressed down too quickly. If we had used pressure sensors, it would have always registered, and we would have had more control over where on the sensor it was hit. In terms of the left-right movement, using a nut and bolt setup would have given us much more control, as the left-right movement we ended up with was somewhat volatile and inconsistent.
+
+**Did you encounter obstacles that you didn’t anticipate?**
+
+- One of the main obstacles was the Nerf gun bullets being inconsistent. With a project that relies on precision, we would have wanted to create a system that didn't rely on the bullets firing in random directions. Unfortunately, because the firing direction varied slightly from shot to shot, it made it harder to consistently hit the target, adjust for it, and have it hit exactly where we adjusted it to. While we were able to design the motors and movement system to adjust and compensate as much as possible, the randomness of the bullet paths was something that we couldn't fully control.
+
+**What could be a next step for this project?**
+
+- In order to remove more of the randomness, we would have wanted a more accurate firing tool. Perhaps we could create our own firing tunnel with servos inside it, making it both more powerful and more accurate. This would help ensure the bullet can push the buttons properly and be more reliable overall. Another possible next step could be adding a vision system, such as a simple camera to detect the exact location of the target and adjust the aim dynamically before firing.
 
 ## References
 
 Fill in your references here as you work on your final project. Describe any libraries used here.
+
+We did not use any external libraries.
