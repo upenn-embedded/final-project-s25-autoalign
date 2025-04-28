@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Adaptive Nerf Targeting System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background-color: #f9f9f9;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .section {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Adaptive Nerf Targeting System</h1>
+
+    <div class="section">
+      <h2>1. Abstract</h2>
+      <p>
+        Our project is an adaptive targeting system that uses pressure sensor
+        feedback to automatically realign a motor-controlled platform that holds
+        a Nerf gun toward the center of a target. It consists of two
+        communicating pieces: a Nerf gun stand that moves up, down, left, and
+        right, and a pressure-sensor-covered target that sends feedback for
+        alignment corrections.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>2. Motivation</h2>
+      <p>
+        The problem we are solving is the aiming of a projectile. Our project
+        controls a Nerf gun with a 2-axis motor system informed by feedback from
+        a peripheral target device, aiming for more accurate firing.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Final Project Report</h2>
+
+      <h3>1. Video</h3>
+      <p>
+        <a
+          href="https://drive.google.com/file/d/1Y7Iry1P9N2BuDRim6GBoatGdywvc1A73/view?usp=sharing"
+          target="_blank"
+          >Watch our project demo video here</a
+        >
+      </p>
+
+      <h3>2. Images</h3>
+      <img src="Images/fullImage.jpeg" alt="Full Image" />
+      <img src="Images/blaster.jpeg" alt="Blaster Image" />
+      <img src="Images/frontAngle.jpeg" alt="Front Angle Image" />
+      <img src="Images/gearShaft.jpeg" alt="Gear Shaft Image" />
+      <img src="Images/TargetConstructed.png" alt="Constructed Target" />
+
+      <h3>3. Results</h3>
+
+      <h4>3.1 Software Requirements Specification (SRS) Results</h4>
+      <p>
+        We met all our expectations. Some requirements changed — LCD screen use
+        was dropped, RF receive interrupts were added, and requirement precision
+        improved. See below for validations:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Validation Outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SRS-01</td>
+            <td>Button impact detection and ADC signal decoding</td>
+            <td>
+              All 17 target panels mapped to individual buttons, verified
+              through code and demos
+            </td>
+          </tr>
+          <tr>
+            <td>SRS-02</td>
+            <td>Peripheral ATMega sending button coordinates via RF</td>
+            <td>RF transmission demonstrated successfully in MVP video</td>
+          </tr>
+          <tr>
+            <td>SRS-03</td>
+            <td>Motor aiming completed within 6 seconds</td>
+            <td>Demonstrated in video with acceptable motion timing</td>
+          </tr>
+          <tr>
+            <td>SRS-04</td>
+            <td>Trigger mechanism firing every ~7 seconds</td>
+            <td>Shown in demonstration video</td>
+          </tr>
+          <tr>
+            <td>SRS-05</td>
+            <td>RF receiver triggers interrupt</td>
+            <td>Implemented using interrupt-driven design</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>3.2 Hardware Requirements Specification (HRS) Results</h4>
+      <p>
+        All hardware requirements were met. Some requirements evolved to improve
+        reliability, including de-noising RF circuits and specifying target
+        launch distances.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Validation Outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HRS-01</td>
+            <td>17 Buttons on the target module</td>
+            <td>Validated through demo video and images</td>
+          </tr>
+          <tr>
+            <td>HRS-02</td>
+            <td>Stepper motors for pitch and yaw</td>
+            <td>Demonstrated in system design</td>
+          </tr>
+          <tr>
+            <td>HRS-03</td>
+            <td>Triggering mechanism using a stepper motor</td>
+            <td>Stepper rail system shown in demo video</td>
+          </tr>
+          <tr>
+            <td>HRS-04</td>
+            <td>Nerf gun launching projectiles over 8 feet</td>
+            <td>Shown in Detkin Lab demo video</td>
+          </tr>
+          <tr>
+            <td>HRS-05</td>
+            <td>Noise-reduced RF receiver with capacitors</td>
+            <td>Capacitor circuit implementation validated</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <img
+        src="Images/de-noiseCapacitorCircuit.png"
+        alt="De-noise Capacitor Circuit"
+      />
+    </div>
+
+    <div class="section">
+      <h2>4. Conclusion</h2>
+      <p>
+        <strong>What we learned:</strong> We gained hands-on embedded systems
+        experience, especially with RF modules, motor control, and precision
+        mechanisms. We also learned the value of careful planning before
+        construction.
+      </p>
+
+      <p>
+        <strong>What went well:</strong> The full system loop — fire, hit,
+        adjust, fire again — worked reliably. We achieved fast RF communication,
+        effective up/down movement, and a consistent trigger mechanism.
+      </p>
+
+      <p>
+        <strong>What we're proud of:</strong> Integrating independent modules
+        into a functioning autonomous system that consistently realigned itself
+        toward the target.
+      </p>
+
+      <p>
+        <strong>Changes we made:</strong> We redesigned the motor stand to
+        separate vertical and horizontal movement for stability and precision.
+        We replaced earlier design ideas with more effective nut-and-bolt linear
+        motion.
+      </p>
+
+      <p>
+        <strong>Unexpected challenges:</strong> Inconsistent Nerf bullet
+        trajectories added randomness that was difficult to fully compensate for
+        despite precise motor adjustments.
+      </p>
+
+      <p>
+        <strong>Next steps:</strong> Future improvements could include building
+        a more accurate firing mechanism and adding a vision-based aiming system
+        using cameras and computer vision.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>References</h2>
+      <p>No external libraries were used in this project.</p>
+    </div>
+  </body>
+</html>

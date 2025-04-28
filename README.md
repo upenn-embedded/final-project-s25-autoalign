@@ -1,7 +1,5 @@
 # AutoAlign
 
-and a target that is covered in pressure sensors which send data back to the motors of the stand to readjust its positioning.
-
 - Team Number: 3
 - Team Name: AutoAlign
 - Team Members: Ayan Bhatia, Matilda Dingemans, Destynn Keuchel
@@ -26,7 +24,7 @@ The problem we are solving is the aiming of a projectile, and the purpose of our
 
 ### 3. System Block Diagram
 
-![image](Images/Block.png)
+![image](BlockDiagrams/Block.png)
 
   <div style="page-break-after: always;"></div>
 
@@ -246,7 +244,7 @@ For the MVP, we aim to have the motors functioning properly and the full target 
 
 **1. Show a system block diagram & explain the hardware implementation.**
 
-![image](Images/MvpBlock.png)
+![image](BlockDiagrams/MvpBlock.png)
 The blue represents unfinished work
 
 **2. Explain your firmware implementation, including application logic and critical drivers you've written.**
