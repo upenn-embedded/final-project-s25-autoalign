@@ -2,55 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Adaptive Nerf Targeting System</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-        background-color: #f9f9f9;
-        line-height: 1.6;
-      }
-      h1,
-      h2,
-      h3 {
-        color: #333;
-      }
-      a {
-        color: #007bff;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      img {
-        max-width: 100%;
-        height: auto;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 10px;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-      .section {
-        margin-top: 50px;
-      }
-    </style>
+    <title>AutoAlign</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Adaptive Nerf Targeting System</h1>
+    <h1>AutoAlign</h1>
 
     <div class="section">
-      <h2>1. Abstract</h2>
+      <h2>Abstract</h2>
       <p>
         Our project is an adaptive targeting system that uses pressure sensor
         feedback to automatically realign a motor-controlled platform that holds
@@ -62,7 +21,7 @@
     </div>
 
     <div class="section">
-      <h2>2. Motivation</h2>
+      <h2>Motivation</h2>
       <p>
         The problem we are solving is the aiming of a projectile. Our project
         controls a Nerf gun with a 2-axis motor system informed by feedback from
@@ -191,41 +150,103 @@
     <div class="section">
       <h2>4. Conclusion</h2>
       <p>
-        <strong>What we learned:</strong> We gained hands-on embedded systems
-        experience, especially with RF modules, motor control, and precision
-        mechanisms. We also learned the value of careful planning before
-        construction.
+        <strong>What we learned:</strong> - This project helped us learn about
+        numerous embedded software systems. Before this, we had never worked
+        with RF modules, nor very much with motors. Some of the previous lab
+        components had some basic motor coding, but this project really got down
+        to the precise movement of the stepper motors we used, which allowed for
+        extreme precision. We also learned about how important ideating is
+        before building. There were multiple times where we implemented ideas
+        and made them partially permanent (such as using super glue) before
+        properly testing them. For example, the first four buttons we put in the
+        target were too low down from the springs, so it made it really
+        difficult for the bullet force to press them in, but they were all
+        superglued in, so we had to break them out using heat and chip off parts
+        of our backing board. If we had used a less permanent seal and then
+        tested, it would have been a lot easier to fix.
       </p>
 
       <p>
-        <strong>What went well:</strong> The full system loop — fire, hit,
-        adjust, fire again — worked reliably. We achieved fast RF communication,
-        effective up/down movement, and a consistent trigger mechanism.
+        <strong>What went well:</strong> The project overall went very well!
+        While there were some longer nights, we got all of our requirements
+        working, and the full loop of the system (as in, fire, hit, move,
+        adjust, repeat) worked really well. While the gun being inaccurate was
+        our main bottleneck, that was out of our control, and all of the items
+        we implemented were quite effective. The RF modules worked really well
+        together and sent and received signals very quickly to ensure the
+        movement wasn't delayed for a long time. Another part of the project
+        that went well was the Up/Down motor system as well as the trigger
+        mechanism. While these both took some ideating, we ultimately had
+        systems that had precise (86 nm) movement, and a trigger mechanism that
+        successfully pushed the bullet into the chamber so it could be fired
+        multiple times in a row without us having to interact with the system at
+        all.
       </p>
 
       <p>
-        <strong>What we're proud of:</strong> Integrating independent modules
-        into a functioning autonomous system that consistently realigned itself
-        toward the target.
+        <strong>What we're proud of:</strong> We are most proud of all of our
+        components working together after working separately. We had a good
+        motor stand, a working target module, and RF working, and then when we
+        were able to write code that seamlessly integrated all of them to work
+        in the looping system, it was extremely satisfying. Seeing the bullet
+        hit the top middle target module and move down right to the middle and
+        hit the middle without us interacting with the system at all was very
+        exciting!
       </p>
 
       <p>
-        <strong>Changes we made:</strong> We redesigned the motor stand to
-        separate vertical and horizontal movement for stability and precision.
-        We replaced earlier design ideas with more effective nut-and-bolt linear
-        motion.
+        <strong>Changes we made:</strong> We had to significantly change our
+        approach from the original motor stand idea. Originally, the design was
+        very unbalanced, with one motor sitting on top of the other, which
+        prevented precise control and caused torque issues. We then decided to
+        split the motors into two separate modules that sat on the tabletop.
+        Next, we needed to address the challenge of converting rotational motion
+        into up-and-down movement. We decided to use a nut and bolt mechanism,
+        where the bolt was attached to the motor and moved up and down along a
+        stand that the top of the motor sat on. This allowed us to achieve
+        extremely precise vertical movement. Finally, we placed the nose of the
+        gun on a smooth acrylic flat top, allowing it to move left and right
+        easily. We considered adding a wheel to further reduce friction, but the
+        acrylic surface was already sufficiently smooth.
       </p>
 
       <p>
-        <strong>Unexpected challenges:</strong> Inconsistent Nerf bullet
-        trajectories added randomness that was difficult to fully compensate for
-        despite precise motor adjustments.
+        <strong>Could Have Been Done Differently:</strong> Two things that could
+        have been done differently are using pressure sensors instead of buttons
+        for the target, and using a nut and bolt setup for the left and right
+        motor as well, so we could have had the same level of precision for both
+        axes. Pressure sensors would have eliminated some of the issues we had
+        where the bullets did not apply enough force for the buttons to fully
+        press down, or did not register because they pressed down too quickly.
+        If we had used pressure sensors, it would have always registered, and we
+        would have had more control over where on the sensor it was hit. In
+        terms of the left-right movement, using a nut and bolt setup would have
+        given us much more control, as the left-right movement we ended up with
+        was somewhat volatile and inconsistent.
       </p>
 
       <p>
-        <strong>Next steps:</strong> Future improvements could include building
-        a more accurate firing mechanism and adding a vision-based aiming system
-        using cameras and computer vision.
+        <strong>Unexpected challenges:</strong> One of the main obstacles was
+        the Nerf gun bullets being inconsistent. With a project that relies on
+        precision, we would have wanted to create a system that didn't rely on
+        the bullets firing in random directions. Unfortunately, because the
+        firing direction varied slightly from shot to shot, it made it harder to
+        consistently hit the target, adjust for it, and have it hit exactly
+        where we adjusted it to. While we were able to design the motors and
+        movement system to adjust and compensate as much as possible, the
+        randomness of the bullet paths was something that we couldn't fully
+        control.
+      </p>
+
+      <p>
+        <strong>Next steps:</strong> In order to remove more of the randomness,
+        we would have wanted a more accurate firing tool. Perhaps we could
+        create our own firing tunnel with servos inside it, making it both more
+        powerful and more accurate. This would help ensure the bullet can push
+        the buttons properly and be more reliable overall. Another possible next
+        step could be adding a vision system, such as a simple camera to detect
+        the exact location of the target and adjust the aim dynamically before
+        firing.
       </p>
     </div>
 
