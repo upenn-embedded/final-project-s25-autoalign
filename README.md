@@ -26,7 +26,7 @@ The problem we are solving is the aiming of a projectile, and the purpose of our
 
 ### 3. System Block Diagram
 
-![image](Block.png)
+![image](Images/Block.png)
 
   <div style="page-break-after: always;"></div>
 
@@ -35,10 +35,10 @@ The problem we are solving is the aiming of a projectile, and the purpose of our
 The motor stand will be 3D printed. We will use Solidworks to design our stand and the RPL to print. We will laser cut wood for the target to place the pressure sensors on.
 
 Motor Stand:
-![image](Drawing1.jpeg)
+![image](Images/Drawing1.jpeg)
 
 Target:
-![image](Drawing2.jpg)
+![image](Images/Drawing2.jpg)
 
   <div style="page-break-after: always;"></div>
 
@@ -131,21 +131,21 @@ Destynn: Worked with RF sensors and understood how to work them and how commuica
 All of us decided that we were going to use 17 buttons over 17 pressure sensors. We thought of a new design with 4 springs and a button underneath a pad of acrylic/wood that would push the button down lightly underneath the pad. Matilda made the first prototype of the pad with the springs and tested different buttons to see which one was the best. Since the pressure sensors were originally going to be our ADC component, we are going to use buttons instead with a resistive divider circuit to complete the ADC component. Each button will be assigned to a different voltage and we will convert using ADC on the ATMega.
 
 WORKING ON/PROTOTYPE IMAGE OF TARGET ZONE PROTOTYPE:
-![image](targetSolid.png)
-![image](workTarget.png)
-![image](workTarget2.png)
-![image](targetPrototype.png)
-![image](targetPrototype2.png)
+![image](Images/targetSolid.png)
+![image](Images/workTarget.png)
+![image](Images/workTarget2.png)
+![image](Images/targetPrototype.png)
+![image](Images/targetPrototype2.png)
 
 Here is a video of the target prototype working 80% of the time. We will need to get new softer springs as well as ensure the target hit prints every hit, and just once.
 
 Video: [https://drive.google.com/file/d/1j0xhVTu1WuUeO6oQJYjVxc8Wiqz5kmaa/view?usp=sharing](https://drive.google.com/file/d/1j0xhVTu1WuUeO6oQJYjVxc8Wiqz5kmaa/view?usp=sharing)
 
 IMAGE OF STAND/WEDGE IN SOLIDWORKS:
-![image](standSolid.png)
+![image](Images/standSolid.png)
 
 RF Module:
-![image](RF.png)
+![image](Images/RF.png)
 
 ### Current state of project
 
@@ -173,23 +173,23 @@ This week, a lot was completed!
 
 First, Ayan printed out the Nerf toy stand, which houses both the motors and the Nerf gun, and once we connect it up, it will be able to have a full range of motion in a certain direction. It has holes for the wires, and it houses the gun nicely. Here is an image of the motor stand as well as a Google Drive link to a video that demonstrates its functionality:
 
-![image](nerfStand1.png)
-![image](nerfStand2.png)
+![image](Images/nerfStand1.png)
+![image](Images/nerfStand2.png)
 Link to video of it moving: [https://drive.google.com/file/d/1VINAu2DPriv7eX9o841xM5F6CaizVxNs/view?usp=sharing](https://drive.google.com/file/d/1VINAu2DPriv7eX9o841xM5F6CaizVxNs/view?usp=sharing)
 
 Something we noted is that the stand may need to be expanded to counterweight the gun’s weight. Right now, it tilts a little because the gun hangs on a certain side where the motor connects. If we make the base wider, then it will balance better. Overall, for a first prototype, though, it works nicely.
 
 Next, we laser cut all of the components for the target. The backing is 3 separate pieces (simply because it was too big for one sheet of acrylic), and it has 17 holes in it which signify where the buttons will sit.
 
-![image](targetBack.png)
+![image](Images/targetBack.png)
 
 Here is the front of the target. It is not assembled yet. Each piece will sit on four springs.
 
-![image](targetFront.png)
+![image](Images/targetFront.png)
 
 Then, when the bullet is fired at each square, a certain button will be pressed down.
 
-![image](buttonInSquare.png)
+![image](Images/buttonInSquare.png)
 
 A current issue we are facing is the ability of the gun to push the springs down completely. An idea we’ve had is to laser cut a small flat piece of acrylic that can be glued to the buttons to make them sit closer to the front pieces. That means that the bullet doesn’t have to exert as much force to press the button down. The top slab will essentially be touching the top of the button, so if it hits it, it will definitely register.
 
@@ -197,11 +197,11 @@ Next, as mentioned last week, we decided to use all buttons and still want to us
 
 Matilda worked on a schematic and prototype of this resistive divider, making sure it could print the different button presses to the serial monitor. Here is the schematic for one of the setups:
 
-![image](ResistiveDividerSchematic.png)
+![image](Images/ResistiveDividerSchematic.png)
 
 The red panels (since there are 8 of them) will need 9 resistors, which matches the schematic above. The yellow and white will both need 5 resistors, and the center piece will be its own GPIO pin for the bullseye. Here is the prototype with 8 buttons:
 
-![image](resistiveDivider.png)
+![image](Images/resistiveDivider.png)
 
 The breadboard setup is the prototype, while the green perfboard will be in the final design. Here is a video showing that the buttons each show different signals in the serial monitor.
 
@@ -209,14 +209,14 @@ Link: [https://drive.google.com/file/d/1IZJQeoeH9H_dqRwRdRc7nax1aOv_U5zq/view?us
 
 Then, the green board is all 3 ADC pin stages on one board. One with 9 resistors, and two with 5. It has been soldered.
 
-![image](resistiveFront.png)
-![image](resistiveBack.png)
+![image](Images/resistiveFront.png)
+![image](Images/resistiveBack.png)
 
 What needs to be added to this is stripped wires that will be sent out to each button at each stage of the divider. Each button will be soldered with two longer wires and then placed into the target and the board, and then connected to the ATmega as well.
 
 Lastly, Destynn figured out how our RF modules worked and was able to transmit data between a receiver and transmitter. He also helped design the target and the motor stand. Also, he helped build the resistive divider schematic.
 
-![image](RFModule.png)
+![image](Images/RFModule.png)
 
 ### Current state of project
 
@@ -246,7 +246,7 @@ For the MVP, we aim to have the motors functioning properly and the full target 
 
 **1. Show a system block diagram & explain the hardware implementation.**
 
-![image](MvpBlock.png)
+![image](Images/MvpBlock.png)
 The blue represents unfinished work
 
 **2. Explain your firmware implementation, including application logic and critical drivers you've written.**
@@ -254,15 +254,15 @@ The blue represents unfinished work
 Our firmware implementation is as follows: The target is standalone with an ATMega and an RF module attached. It has 17 buttons, which use 3 separate ADC Pins (PC0, PC4, PC5) as well as one GPIO pin for the bullseye. The buttons sit behind 17 separate laser cut acrylic pieces which are held up over the button by springs. When our nerf gun fires at the target in a certain spot, it will press down that button behind that acrylic pad.
 
 One thing that we noted last week was that the buttons were too far away for the pads to be able to register the hits, so we added these squares that sit right in the center, that hover over where the buttons are.
-![image](targetBuild.png)
-![image](TargetBuild2.png)
+![image](Images/targetBuild.png)
+![image](Images/TargetBuild2.png)
 
 The buttons use ADC by going through three resisitve dividers. Each color of the target represents a ADC pin, and no two colors touch to ensure we dont fire two at the same time and get a random voltage reading.
 
 The buttons slot through the back of the target and are all soldered. The buttons all have a VCC pin which connect to their respective parts of the resisitve divider, and the other pin is the pin that connects to the ADC pin on the ATMega, so they are all a common node for each color.
 
-![image](Perfboard.png)
-![image](connectingButtons.png)
+![image](Images/Perfboard.png)
+![image](Images/connectingButtons.png)
 
 The white and yellow modules share a perfboard while the red (which is 8 buttons) has its own.
 
@@ -270,12 +270,12 @@ Here is an initial test video where the oscilloscope shows the voltage jump when
 
 The final implementation of the target was able to print out the correct value wherever it hit to the terminal according to these values:
 
-![image](targetMap.jpg)
+![image](Images/targetMap.jpg)
 
 Here are images of the final constructed target
 
-![image](TargetConstructed.png)
-![image](TargetConstructed2.png)
+![image](Images/TargetConstructed.png)
+![image](Images/TargetConstructed2.png)
 
 We added a backing to ensire that the bullets push the springs rather than the entire board. It made the signals pick up more consistently since the bullets fire so quickly.
 
@@ -375,11 +375,11 @@ We might need some help with the gearbox, but I think for now we have it covered
 
 ### 2. Images
 
-![image](fullImage.jpeg)
-![image](blaster.jpeg)
-![image](frontAngle.jpeg)
-![image](gearShaft.jpeg)
-![image](TargetConstructed.png)
+![image](Images/fullImage.jpeg)
+![image](Images/blaster.jpeg)
+![image](Images/frontAngle.jpeg)
+![image](Images/gearShaft.jpeg)
+![image](Images/TargetConstructed.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -430,7 +430,7 @@ Our HRS (Final)
 | HRS-04 | Nerf gun will launch projectile towards the peripheral target, over 8 feet away | The projectile was launched accross the Detkin lab benches, which are over 8 feet apart as can be seen in the demo video |
 | HRS-05 | RF receiver module will use capacitor circuit for noise reduction | The nRF24L01+ RF receiver module utilized a two-capacitor de-noising circuit as can be seen in the picture below from the principal ATMega mini breadboard |
 
-![de-noiseCapacitorCircuit](./de-noiseCapacitorCircuit.png)
+![de-noiseCapacitorCircuit](Images/de-noiseCapacitorCircuit.png)
 Two-capacitor de-noise circuit for RF receiver.
 
 <div style="page-break-after: always;"></div>
